@@ -1,0 +1,7 @@
+= Url Login
+
+Log the user in with a secret token in the url and optionally redirect them to a specified page.
+
+== Example
+
+login_link = "http://#{APP_DOMAIN}/login/#{user.create_token!}/#{'someurl'.encode}"
