@@ -9,8 +9,12 @@ class UrlLoginExtension < Radiant::Extension
 
   def activate
     User.class_eval do
-      serialize :login_tokens, Array
+      serialize(:login_tokens, Array)
 
+      def login_tokens
+        self[:login_tokens] ||= []
+      end
+      
       def generate_token(size)
         chars = ((' '[0]..'~'[0]).to_a.collect{|e| e.chr} - %w(' " \\ ` /))
         (0...size).inject(''){ |memo,_| memo << chars.sort_by{rand}.first }

@@ -12,9 +12,7 @@ class UrlLoginTest < ActionController::IntegrationTest
     get "/login/GoodToken/#{redirect_url.encode}"
     assert_redirected_to redirect_url
     user.reload
-
     assert_equal [], user.login_tokens
     assert_equal user, controller.send(:current_user)
-    assert false
   end
 end
