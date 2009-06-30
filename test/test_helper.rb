@@ -12,16 +12,18 @@ unless defined? RADIANT_ROOT
     require "#{File.expand_path(File.dirname(__FILE__) + "/../../../../")}/config/environment"
   end
 end
-require "#{RADIANT_ROOT}/test/test_helper"
-require 'scenarios'
-Scenario.load_paths.unshift "#{RADIANT_ROOT}/spec/scenarios"
 
 class Test::Unit::TestCase
-  self.use_transactional_fixtures = true
-  self.use_instantiated_fixtures = false
-  self.fixture_path << File.expand_path(File.dirname(__FILE__)) + '/fixtures'
+  def self.use_transactional_fixtures=(value); end
+  def self.use_instantiated_fixtures=(value); end
+  def self.fixture_path=(value); end
 end
 
-class ActionController::IntegrationTest < Test::Unit::TestCase
-  self.fixture_path = File.expand_path(File.dirname(__FILE__)) + '/fixtures'
+require "#{RADIANT_ROOT}/test/test_helper"
+
+require 'dataset'
+class Test::Unit::TestCase
+  include Dataset
+  datasets_directory "#{RADIANT_ROOT}/spec/datasets"
+  Dataset::ContextClassMethods.datasets_database_dump_path = File.expand_path(datasets_database_dump_path = File.join(File.dirname(__FILE__), "..", "tmp"))
 end

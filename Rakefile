@@ -31,7 +31,7 @@ Object.send(:remove_const, :RADIANT_ROOT)
 
 extension_root = File.expand_path(File.dirname(__FILE__))
 
-task :default => :spec
+task :default => :test
 task :stats => "spec:statsetup"
 
 desc "Run all specs in spec directory"
@@ -48,7 +48,7 @@ namespace :spec do
     t.rcov = true
     t.rcov_opts = ['--exclude', 'spec', '--rails']
   end
-
+  
   desc "Print Specdoc for all specs"
   Spec::Rake::SpecTask.new(:doc) do |t|
     t.spec_opts = ["--format", "specdoc", "--dry-run"]
@@ -62,7 +62,7 @@ namespace :spec do
       t.spec_files = FileList["spec/#{sub}/**/*_spec.rb"]
     end
   end
-
+  
   # Hopefully no one has written their extensions in pre-0.9 style
   # desc "Translate specs from pre-0.9 to 0.9 style"
   # task :translate do
@@ -99,17 +99,17 @@ namespace :spec do
   end
 end
 
-desc 'Generate documentation for the link_authenticate extension.'
+desc 'Generate documentation for the whatever extension.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'LinkAuthenticateExtension'
+  rdoc.title    = 'WhateverExtension'
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
 # For extensions that are in transition
-desc 'Test the link_authenticate extension.'
+desc 'Test the whatever extension.'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.pattern = 'test/**/*_test.rb'

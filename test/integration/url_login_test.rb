@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UrlLoginTest < ActionController::IntegrationTest
-  scenario :users
+  dataset :users
 
   def test_login_succeeds
     user = users(:existing)
@@ -15,5 +15,6 @@ class UrlLoginTest < ActionController::IntegrationTest
 
     assert_equal [], user.login_tokens
     assert_equal user, controller.send(:current_user)
+    assert false
   end
 end
